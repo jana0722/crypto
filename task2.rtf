@@ -1,0 +1,36 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 from collections import Counter\
+\
+\
+ENGLISH_FREQ = "ETAOINSHRDLCUMWFGYPBVKJXQZ"\
+\
+def frequency_analysis(text):\
+    text = text.upper()\
+    letter_counts = Counter(c for c in text if c.isalpha())\
+    sorted_letters = [pair[0] for pair in letter_counts.most_common()]\
+    return sorted_letters\
+\
+def build_decryption_map(cipher_freq, english_freq):\
+    decryption_map = \{cipher: plain for cipher, plain in zip(cipher_freq, english_freq)\}\
+    return decryption_map\
+\
+def decrypt(text, decryption_map):\
+    return "".join(decryption_map.get(c, c) for c in text.upper())\
+\
+def main():\
+    ciphertext = input("Enter the encrypted text: ")\
+    cipher_freq = frequency_analysis(ciphertext)\
+    decryption_map = build_decryption_map(cipher_freq, ENGLISH_FREQ)\
+    decrypted_text = decrypt(ciphertext, decryption_map)\
+    print("\\nPossible decryption:")\
+    print(decrypted_text)\
+\
+if __name__ == "__main__":\
+    main()\
+}
